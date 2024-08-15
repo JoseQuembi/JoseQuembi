@@ -34,6 +34,10 @@ class Project extends Model
             ->saveSlugsTo('slug');
     }
 
+    public function resources(){
+        return $this->hasMany(Resource::class);
+    }
+
     public function budget()
     {
         return $this->hasMany(Budget::class);

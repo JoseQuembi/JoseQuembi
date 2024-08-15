@@ -50,7 +50,7 @@
             @foreach ($projects as $project)
             <tr>
                 <td class="py-2 px-4 border-b">
-                    <a href="{{ route('admin.projects.show', $project->slug) }}">{{ Ajuda::limitarString($project->name, 50) }}</a>
+                    <a href="{{ route('admin.projects.show', $project->slug) }}">{{ Ajuda::limitarString($project->name, 30) }}</a>
                 </td>
                 <td class="py-2 px-4 border-b">
                     <span>{{ $project->status }}</span>

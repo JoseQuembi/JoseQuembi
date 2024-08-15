@@ -13,7 +13,7 @@ Route::prefix('painel')->middleware(['auth', 'role:admin'])->name('admin.')->gro
         Route::get('create', App\Livewire\Admin\Users\Create::class)->name('create');
         Route::get('{username}/edit', App\Livewire\Admin\Users\Edit::class)->name('edit');
         Route::get('{username}/info', App\Livewire\Admin\Users\Show::class)->name('show');
-        Route::get('{username}/role', App\Livewire\Admin\Users\Role::class)->name('settings.index');
+        Route::get('{username}/role', App\Livewire\Admin\Users\Role::class)->name('roles');
     });
     Route::prefix('acesse')->name('acesse.')->group(function(){
         Route::get('/role', App\Livewire\Admin\Role\Role::class)->name('role');
@@ -46,6 +46,8 @@ Route::prefix('painel')->middleware(['auth', 'role:admin'])->name('admin.')->gro
     Route::prefix('clients')->name('clients.')->group(function(){
         Route::get('/', App\Livewire\Admin\Clients\Index::class)->name('index');
         Route::get('create', App\Livewire\Admin\Clients\Create::class)->name('create');
+        Route::get('editar/{client}', App\Livewire\Admin\Clients\Create::class)->name('edit');
+        Route::get('detalhe/{client}', App\Livewire\Admin\Clients\Create::class)->name('show');
     });
     // Rotas CRUD para Recursos
     Route::prefix('resources')->name('resources.')->group(function(){

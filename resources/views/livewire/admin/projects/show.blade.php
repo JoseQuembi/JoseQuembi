@@ -5,16 +5,20 @@
         <div>
             <h3 class="text-lg font-semibold mb-2">Detalhes do Projeto</h3>
             <p><strong>Descrição:</strong> {{ $project->description }}</p>
-            <p><strong>Data de Início:</strong> {{ $project->start_date ? $project->start_date->format('d/m/Y') : 'sem data' }}</p>
-            <p><strong>Data de Término:</strong> {{ $project->end_date ? $project->end_date->format('d/m/Y')  : 'Sem data definida'}}</p>
+            <p><strong>Data de Início:</strong> {{ $project->start_date ? Ajuda::dataCurta($project->start_date) : 'sem data' }}</p>
+            <p><strong>Data de Término:</strong> {{ $project->end_date ? Ajuda::dataCurta($project->end_date)  : 'Sem data definida'}}</p>
             <p><strong>Status:</strong> {{ ucfirst($project->status) }}</p>
             <p><strong>Responsável:</strong> {{ $project->user->name }}</p>
         </div>
 
         <div>
             <h3 class="text-lg font-semibold mb-2">Resumo do Orçamento</h3>
-            <p><strong>Total Orçado:</strong> R$ {{ number_format($project->budget()->sum('amount'), 2, ',', '.') }}</p>
+            <p><strong>Total Orçado:</strong> {{ Ajuda::Moeda($project->budget()->sum('amount')) }}</p>
             <!-- Adicione mais informações sobre o orçamento conforme necessário -->
+            <h3 class="text-lg font-semibold mb-2 mt-8">Recursos</h3>
+            @foreach ($project->resources as $resource )
+            <p><strong>{{ $resource->name }}:</strong> {{ Ajuda::Moeda($resource->unit_cost * $resource->quantity) }}</p>
+            @endforeach
         </div>
     </div>
 

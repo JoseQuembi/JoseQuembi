@@ -37,16 +37,35 @@
                         </thead>
                         <tbody>
                             @foreach($clients as $client)
-                                <tr>
-                                    <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ $client->name }}</td>
-                                    <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ $client->email }}</td>
-                                    <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ $client->phone }}</td>
-                                    <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ $client->company_name }}</td>
-                                    <td class="border-dashed border-t border-gray-200 px-3 py-2">
-                                        <a href="#" class="text-blue-600 hover:text-blue-900 mr-2">Editar</a>
-                                        <a href="#" class="text-red-600 hover:text-red-900">Excluir</a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ $client->name }}</td>
+                                <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ $client->email }}</td>
+                                <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ $client->phone }}</td>
+                                <td class="border-dashed border-t border-gray-200 px-3 py-2">{{ $client->company_name }}</td>
+                                <td class="border-dashed border-t border-gray-200 px-3 py-2">
+                                    <div class="hs-dropdown relative inline-flex">
+                                        <button id="hs-dropdown-transform-style" type="button" class="hs-dropdown-toggle py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
+                                            Opção
+                                            <svg class="hs-dropdown-open:rotate-180 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="m6 9 6 6 6-6" /></svg>
+                                        </button>
+
+                                        <div class="hs-dropdown-menu w-72 transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden z-10" role="menu" aria-orientation="vertical" aria-labelledby="hs-dropdown-transform-style">
+                                            <div class="hs-dropdown-open:ease-in hs-dropdown-open:opacity-100 hs-dropdown-open:scale-100 transition ease-out opacity-0 scale-95 duration-200 mt-2 origin-top-left min-w-60 bg-white shadow-md rounded-lg p-2 dark:bg-neutral-800 dark:border dark:border-neutral-700 dark:divide-neutral-700" data-hs-transition>
+                                                <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700" href="{{ route('admin.clients.show', $client->id) }}">
+                                                    Detalhe
+                                                </a>
+                                                <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700" href="{{ route('admin.clients.edit', $client->id) }}">
+                                                    Editar
+                                                </a>
+                                                <button wire:click="delete({{ $client->id }})" class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700">
+                                                    Eliminar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
