@@ -49,6 +49,34 @@
                     </ul>
                 </div>
             </li>
+            <li class="hs-accordion" id="clients-accordion">
+                <a class="hs-accordion-toggle flex items-center gap-x-3.5 py-2 px-2.5 hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:hs-accordion-active:text-white" href="javascript:;">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    Clientes
+                    <svg class="hs-accordion-active:block ml-auto hidden w-3 h-3 text-gray-600 group-hover:text-gray-500 dark:text-gray-400" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 11L8.16086 5.31305C8.35239 5.13625 8.64761 5.13625 8.83914 5.31305L15 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    </svg>
+                    <svg class="hs-accordion-active:hidden ml-auto block w-3 h-3 text-gray-600 group-hover:text-gray-500 dark:text-gray-400" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    </svg>
+                </a>
+                <div id="clients-accordion-child" class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 hidden">
+                    <ul class="pt-2 pl-2">
+                        <li>
+                            <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm {{ request()->routeIs('admin.clients.index') ? 'text-blue-600' : 'text-slate-700 hover:bg-gray-100' }} rounded-md dark:bg-gray-800 dark:text-slate-400 dark:hover:text-slate-300" href="{{ route('admin.clients.index') }}">
+                                Lista de Clientes
+                            </a>
+                        </li>
+                        <li>
+                            <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm {{ request()->routeIs('admin.clients.create') ? 'text-blue-600' : 'text-slate-700 hover:bg-gray-100' }} rounded-md dark:bg-gray-800 dark:text-slate-400 dark:hover:text-slate-300" href="{{ route('admin.clients.create') }}">
+                                Criar Cliente
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             <li class="hs-accordion" id="projects-accordion">
                 <a class="hs-accordion-toggle flex items-center gap-x-3.5 py-2 px-2.5 hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:hs-accordion-active:text-white" href="javascript:;">
                     <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -95,8 +123,7 @@
                 </a>
             </li>
             <li>
-            <li>
-                <a class="flex items-center gap-x-3.5 py-2 px-2.5 {{ request()->routeIs('admin.profile*') ? 'bg-gray-100 text-blue-600' : 'text-slate-700 hover:bg-gray-100' }} text-sm rounded-md dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300" href="{{ route('admin.profile.show') }}">
+                <a class="flex items-center gap-x-3.5 py-2 px-2.5 {{ request()->routeIs('admin.profile.*') ? 'bg-gray-100 text-blue-600' : 'text-slate-700 hover:bg-gray-100' }} text-sm rounded-md dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300" href="{{ route('admin.profile.show') }}">
                     <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
@@ -126,6 +153,34 @@
                         <li>
                             <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm {{ request()->routeIs('admin.payments.create') ? 'text-blue-600' : 'text-slate-700 hover:bg-gray-100' }} rounded-md dark:bg-gray-800 dark:text-slate-400 dark:hover:text-slate-300" href="{{ route('admin.payments.create') }}">
                                 Criar Pagamento
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="hs-accordion" id="invoices-accordion">
+                <a class="hs-accordion-toggle flex items-center gap-x-3.5 py-2 px-2.5 hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent text-sm text-slate-700 rounded-md hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:hs-accordion-active:text-white" href="javascript:;">
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Faturas
+                    <svg class="hs-accordion-active:block ml-auto hidden w-3 h-3 text-gray-600 group-hover:text-gray-500 dark:text-gray-400" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 11L8.16086 5.31305C8.35239 5.13625 8.64761 5.13625 8.83914 5.31305L15 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    </svg>
+                    <svg class="hs-accordion-active:hidden ml-auto block w-3 h-3 text-gray-600 group-hover:text-gray-500 dark:text-gray-400" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    </svg>
+                </a>
+                <div id="invoices-accordion-child" class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300 hidden">
+                    <ul class="pt-2 pl-2">
+                        <li>
+                            <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm {{ request()->routeIs('admin.invoices.index') ? 'text-blue-600' : 'text-slate-700 hover:bg-gray-100' }} rounded-md dark:bg-gray-800 dark:text-slate-400 dark:hover:text-slate-300" href="{{ route('admin.invoices.index') }}">
+                                Lista de Faturas
+                            </a>
+                        </li>
+                        <li>
+                            <a class="flex items-center gap-x-3.5 py-2 px-2.5 text-sm {{ request()->routeIs('admin.invoices.create') ? 'text-blue-600' : 'text-slate-700 hover:bg-gray-100' }} rounded-md dark:bg-gray-800 dark:text-slate-400 dark:hover:text-slate-300" href="{{ route('admin.invoices.create') }}">
+                                Criar Fatura
                             </a>
                         </li>
                     </ul>

@@ -11,11 +11,15 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('payment_id')->constrained()->onDelete('cascade');
+            $table->foreignId('project_id')->constrained()->onDelete('cascade');
+            $table->foreignId('client_id')->constrained()->onDelete('cascade');
             $table->string('invoice_number')->unique();
             $table->date('issue_date');
             $table->date('due_date');
             $table->decimal('total_amount', 10, 2);
-            $table->enum('status', ['pending', 'paid'])->default('pending');
+            $table->text('notes')->nullable();
+            $table->string('slug')->unique();
+            $table->enum('status', ['pending', 'paid', 'overdue'])->default('pending');
             $table->timestamps();
         });
     }

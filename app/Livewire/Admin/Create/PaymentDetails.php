@@ -11,9 +11,9 @@ class PaymentDetails extends Component
     #[Layout('layouts.dashboard')]
     public Payment $payment;
 
-    public function mount(Payment $payment)
+    public function mount($slug)
     {
-        $this->payment = $payment;
+        $this->payment = Payment::where('slug', $slug)->first();
     }
 
     public function markInstallmentAsPaid($installmentId)

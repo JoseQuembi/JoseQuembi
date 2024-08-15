@@ -20,6 +20,11 @@ class PaymentList extends Component
         $this->resetPage();
     }
 
+    public function delete($id){
+        $payment = Payment::find($id);
+        $payment->delete();
+    }
+
     public function render()
     {
         $payments = Payment::query()

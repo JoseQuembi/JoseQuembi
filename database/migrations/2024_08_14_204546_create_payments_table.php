@@ -11,10 +11,12 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('project_id')->constrained()->onDelete('cascade');
+            $table->foreignId('client_id')->constrained()->onDelete('cascade');
             $table->decimal('total_amount', 10, 2);
-            $table->integer('installments')->default(1);
+            $table->integer('installment')->default(1);
             $table->enum('status', ['pending', 'partial', 'paid'])->default('pending');
             $table->date('due_date');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

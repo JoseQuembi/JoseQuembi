@@ -17,6 +17,7 @@ class Resource extends Model
         'quantity',    // Quantidade disponível (para materiais ou tempo disponível para humanos)
         'unit_cost',   // Custo por unidade (hora, peça, etc.)
         'project_id',  // Relacionamento com o projeto ao qual o recurso está alocado
+        'slug'
     ];
 
     public function getSlugOptions(): SlugOptions

@@ -33,10 +33,20 @@ Route::prefix('painel')->middleware(['auth', 'role:admin'])->name('admin.')->gro
     Route::prefix('payments')->name('payments.')->group(function(){
         Route::get('/', App\Livewire\Admin\Create\PaymentList::class)->name('index');
         Route::get('create', App\Livewire\Admin\Create\Payment::class)->name('create');
-        Route::get('{payment}/show', App\Livewire\Admin\Create\PaymentDetails::class)->name('show');
+        Route::get('{slug}/show', App\Livewire\Admin\Create\PaymentDetails::class)->name('show');
     });
 
-
+    //Facturas
+    Route::prefix('invoices')->name('invoices.')->group(function(){
+        Route::get('/', App\Livewire\Admin\Create\InvoiceList::class)->name('index');
+        Route::get('create', App\Livewire\Admin\Create\Invoice::class)->name('create');
+        Route::get('{slug}/edit', App\Livewire\Admin\Create\InvoiceEdit::class)->name('edit');
+        Route::get('{slug}/show', App\Livewire\Admin\Create\InvoiceShow::class)->name('show');
+    });
+    Route::prefix('clients')->name('clients.')->group(function(){
+        Route::get('/', App\Livewire\Admin\Clients\Index::class)->name('index');
+        Route::get('create', App\Livewire\Admin\Clients\Create::class)->name('create');
+    });
     // Rotas CRUD para Recursos
     Route::prefix('resources')->name('resources.')->group(function(){
         Route::get('/', App\Livewire\Admin\Resources\Index::class)->name('index');

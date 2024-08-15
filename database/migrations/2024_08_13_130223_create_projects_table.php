@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('end_date')->default(Carbon::now()->addMonths(3)->format('Y-m-d'));
             $table->enum('status',['planejamento','em_andamento','concluido','cancelado'])->default('planejamento');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('client_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

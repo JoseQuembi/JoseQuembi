@@ -18,7 +18,8 @@ class Project extends Model
         'start_date',
         'end_date',
         'user_id', // Chave estrangeira para o usuário
-        'status'
+        'status',
+        'client_id',
     ];
 
     protected $casts = [
@@ -41,6 +42,11 @@ class Project extends Model
     public function tasks()
     {
         return $this->hasMany(Task::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
     }
 
     public function user()

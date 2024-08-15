@@ -3,31 +3,29 @@
 namespace App\Livewire\Admin\Create;
 
 use Livewire\Component;
-use App\Models\Invoice as Model;
+use App\Models\Invoice;
 use App\Models\Project;
 use App\Models\Client;
-use App\Models\Installment; // Importar o modelo de Installment
 use Carbon\Carbon;
 use Livewire\Attributes\Layout;
 
-class Invoice extends Component
+class InvoiceEdit extends Component
 {
     #[Layout('layouts.dashboard')]
+    public $invoice;
     public $project_id;
     public $client_id;
-    public $installment_id; // Novo campo para a parcela
     public $invoice_number;
     public $issue_date;
     public $due_date;
-    public $total_amount = 0;
+    public $total_amount;
     public $items = [];
     public $notes;
 
     protected $rules = [
         'project_id' => 'required|exists:projects,id',
         'client_id' => 'required|exists:clients,id',
-        'installment_id' => 'nullable|exists:installments,id', // Regra para o novo campo
-        'invoice_number' => 'required|unique:invoices,invoice_number',
+        'invoice_number' => 'required|unique:invoices,invoice_number,{{invoice.id}}',
         'issue_date' => 'required|date',
         'due_date' => 'required|date|after_or_equal:issue_date',
         'total_amount' => 'required|numeric|min:0',
@@ -38,11 +36,17 @@ class Invoice extends Component
         'notes' => 'nullable|string',
     ];
 
-    public function mount()
+    public function mount($slug)
     {
-        $this->issue_date = Carbon::now()->format('Y-m-d');
-        $this->due_date = Carbon::now()->addDays(30)->format('Y-m-d');
-        $this->addItem();
+        $this->invoice = Invoice::where('slug', $slug)->first();
+        $this->project_id = $this->invoice->project_id;
+        $this->client_id = $this->invoice->client_id;
+        $this->invoice_number = $this->invoice->invoice_number;
+        $this->issue_date = Carbon::parse($this->invoice->issue_date)->format('Y-m-d');
+        $this->due_date = Carbon::parse($this->invoice->due_date)->format('Y-m-d');
+        $this->total_amount = $this->invoice->total_amount;
+        $this->items = $this->invoice->items->toArray();
+        $this->notes = $this->invoice->notes;
     }
 
     public function addItem()
@@ -73,14 +77,13 @@ class Invoice extends Component
         $this->calculateTotal();
     }
 
-    public function createInvoice()
+    public function updateInvoice()
     {
         $this->validate();
 
-        $invoice = Model::create([
+        $this->invoice->save([
             'project_id' => $this->project_id,
             'client_id' => $this->client_id,
-            'installment_id' => $this->installment_id, // Associar a parcela
             'invoice_number' => $this->invoice_number,
             'issue_date' => $this->issue_date,
             'due_date' => $this->due_date,
@@ -89,24 +92,25 @@ class Invoice extends Component
             'status' => 'pending',
         ]);
 
+        $this->invoice->items()->delete();
+
         foreach ($this->items as $item) {
-            $invoice->items()->create([
+            $this->invoice->items()->create([
                 'description' => $item['description'],
                 'quantity' => $item['quantity'],
                 'unit_price' => $item['unit_price'],
             ]);
         }
 
-        session()->flash('message', 'Fatura criada com sucesso.');
-        return redirect()->route('admin.invoices.show', $invoice->id);
+        session()->flash('message', 'Fatura atualizada com sucesso.');
+        return redirect()->route('admin.invoices.show', $this->invoice->slug);
     }
 
     public function render()
     {
         $projects = Project::orderBy('name', 'asc')->get();
         $clients = Client::orderBy('name', 'asc')->get();
-        $installments = Installment::orderBy('due_date', 'asc')->get(); // Obter as parcelas
 
-        return view('livewire.admin.create.invoice', compact('projects', 'clients', 'installments'));
+        return view('livewire.admin.create.invoice-edit', compact('projects', 'clients'));
     }
 }

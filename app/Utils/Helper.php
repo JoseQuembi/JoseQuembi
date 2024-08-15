@@ -6,14 +6,6 @@ use Carbon\Carbon;
 
 class Helper
 {
-    /**
-     * Converte uma data de um formato para outro.
-     *
-     * @param string $date A data a ser convertida.
-     * @param string $fromFormat O formato atual da data.
-     * @param string $toFormat O formato para o qual a data será convertida.
-     * @return string|null A data convertida ou null se a conversão falhar.
-     */
     public static function convertDateFormat(string $date, string $fromFormat = 'Y-m-d', string $toFormat = 'd/m/Y'): ?string
     {
         try {
@@ -22,24 +14,28 @@ class Helper
             return null; // Retorna null se houver um erro na conversão
         }
     }
+    public static function dataCurta(string $date): string
+    {
+        try {
+            // Cria uma instância do Carbon a partir da data, considerando formatos comuns
+            $carbonDate = Carbon::parse($date);
+            // Formata a data no formato 'd/m/Y'
+            return $carbonDate->format('d/m/Y');
+        } catch (\Exception $e) {
+            return 'Data inválida'; // Retorna uma mensagem padrão se a data for inválida
+        }
+    }
 
-    /**
-     * Converte uma string em formato slug.
-     *
-     * @param string $string A string a ser convertida.
-     * @return string A string convertida para o formato slug.
-     */
+    public static function Moeda(float $valor, string $moeda = 'kz'): string
+    {
+        return number_format($valor, 2, ',', '.') . ' ' . $moeda;
+    }
+
     public static function convertToSlug(string $string): string
     {
         return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string)));
     }
 
-    /**
-     * Converte uma quantidade de bytes em uma string legível para humanos (KB, MB, GB).
-     *
-     * @param int $bytes O número de bytes.
-     * @return string A quantidade de bytes convertida em uma string legível.
-     */
     public static function formatBytes(int $bytes): string
     {
         if ($bytes >= 1073741824) {
@@ -59,17 +55,10 @@ class Helper
         return $bytes;
     }
 
-    /**
-     * Converte uma string boolean para um valor booleano.
-     *
-     * @param string $value A string a ser convertida ('true', 'false', '1', '0').
-     * @return bool O valor booleano correspondente.
-     */
     public static function convertToBoolean(string $value): bool
     {
         return filter_var($value, FILTER_VALIDATE_BOOLEAN);
     }
-
 
     public static function humanoData(string $date): string
     {
@@ -126,6 +115,7 @@ class Helper
 
         return 'Data não especificada';
     }
+
     public static function limitarString(string $string, int $limit = 100, string $end = '...'): string
     {
         if (mb_strlen($string) <= $limit) {
@@ -133,5 +123,37 @@ class Helper
         }
 
         return mb_substr($string, 0, $limit) . $end;
+    }
+
+    /**
+     * Gera um UUID v4 (Universally Unique Identifier).
+     *
+     * @return string O UUID gerado.
+     */
+    public static function gerarUUID(): string
+    {
+        return (string) \Illuminate\Support\Str::uuid();
+    }
+
+    /**
+     * Verifica se uma string é um endereço de e-mail válido.
+     *
+     * @param string $email O endereço de e-mail a ser verificado.
+     * @return bool Retorna true se o e-mail for válido, false caso contrário.
+     */
+    public static function validarEmail(string $email): bool
+    {
+        return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+    }
+
+    /**
+     * Gera uma senha aleatória com um comprimento especificado.
+     *
+     * @param int $comprimento O comprimento da senha gerada.
+     * @return string A senha gerada.
+     */
+    public static function gerarSenha(int $comprimento = 12): string
+    {
+        return \Illuminate\Support\Str::random($comprimento);
     }
 }
