@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Projects;
 use App\Models\Client;
 use Livewire\Component;
 use App\Models\Project;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 
 class Create extends Component
@@ -34,7 +35,7 @@ class Create extends Component
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'client_id' => $this->client_id,
-            'user_id' => auth()->id(), // Assumindo que o usuário logado é o criador do projeto
+            'user_id' => Auth::user()->id, // Assumindo que o usuário logado é o criador do projeto
         ]);
 
         session()->flash('message', 'Projeto criado com sucesso!');

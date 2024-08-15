@@ -21,8 +21,8 @@
         <tbody>
             @foreach($invoices as $invoice)
                 <tr>
-                    <td class="border px-2 py-2">{{ $invoice->invoice_number }}</td>
-                    <td class="border px-3 py-2">{{ Ajuda::limitarString($invoice->project->name, 15) }}</td>
+                    <td class="border px-2 py-2"><a href="{{ route('admin.invoices.show',$invoice->slug) }}">{{ $invoice->invoice_number }}</a></td>
+                    <td class="border px-3 py-2"><a href="{{ route('admin.projects.show', $invoice->project->slug) }}">{{ Ajuda::limitarString($invoice->project->name, 15) }}</a></td>
                     <td class="border px-3 py-2">{{ $invoice->client->name }}</td>
                     <td class="border px-3 py-2 text-center">{{ Ajuda::dataCurta($invoice->issue_date) }}</td>
                     <td class="border px-3 py-2">{{ Ajuda::Moeda($invoice->total_amount) }}</td>

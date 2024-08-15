@@ -65,7 +65,7 @@
                 </div>
                 <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">Notas</dt>
-                    <dd class="mt-1 text-sm text-gray-900 col-span-2">{{ $invoice->notes ?? 'Nenhuma nota adicional.' }}</dd>
+                    <dd class="mt-1 text-sm text-gray-900 col-span-2">{{ $invoice->notes }}</dd>
                 </div>
                 <div class="py-4 sm:py-5 sm:px-6">
                     <p class="text-sm text-gray-500">{{ $systemSettings->footer_text }}</p>
