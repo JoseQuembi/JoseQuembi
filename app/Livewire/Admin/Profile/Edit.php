@@ -2,46 +2,45 @@
 
 namespace App\Livewire\Admin\Profile;
 
-use Illuminate\Support\Facades\Storage;
-use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
 
 class Edit extends Component
 {
     use WithFileUploads;
+    #[Layout('layouts.profile')]
 
-    #[Layout('layouts.dashboard')]
     public $user;
-    public $profile;
     public $name;
     public $email;
-    public $phone;
-    public $address;
     public $bio;
     public $website;
-    public $profile_image;
+    public $address;
+    public $phone;
+    public $newProfileImage;
 
     protected $rules = [
         'name' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
-        'phone' => 'nullable|string|max:20',
-        'address' => 'nullable|string|max:255',
+        'email' => 'required|email|unique:users,email',
         'bio' => 'nullable|string|max:1000',
-        'website' => 'nullable|url|max:255',
-        'profile_image' => 'nullable|image|max:1024',
+        'website' => 'nullable|url',
+        'address' => 'nullable|string|max:255',
+        'phone' => 'nullable|string|max:20',
+        'newProfileImage' => 'nullable|image|max:1024',
     ];
 
     public function mount()
     {
-        $this->user = auth()->user();
-        $this->profile = $this->user->userProfile;
+        $this->user = Auth::user();
         $this->name = $this->user->name;
         $this->email = $this->user->email;
-        $this->phone = $this->user->phone;
+        $this->bio = $this->user->userProfile->bio ?? '';
+        $this->website = $this->user->userProfile->website ?? '';
         $this->address = $this->user->address;
-        $this->bio = $this->profile->bio ?? '';
-        $this->website = $this->profile->website ?? '';
+        $this->phone = $this->user->phone;
     }
 
     public function updateProfile()
@@ -51,15 +50,9 @@ class Edit extends Component
         $this->user->update([
             'name' => $this->name,
             'email' => $this->email,
-            'phone' => $this->phone,
             'address' => $this->address,
+            'phone' => $this->phone,
         ]);
-
-        if ($this->profile_image) {
-            $imagePath = $this->profile_image->store('profile-images', 'public');
-            $path = asset(Storage::url($imagePath));
-            $this->user->update(['profile_image' => $path]);
-        }
 
         $this->user->userProfile()->updateOrCreate(
             ['user_id' => $this->user->id],
@@ -68,6 +61,11 @@ class Edit extends Component
                 'website' => $this->website,
             ]
         );
+
+        if ($this->newProfileImage) {
+            $imagePath = $this->newProfileImage->store('profile-images', 'public');
+            $this->user->update(['profile_image' => $imagePath]);
+        }
 
         session()->flash('message', 'Perfil atualizado com sucesso.');
     }

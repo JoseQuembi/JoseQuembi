@@ -1,6 +1,6 @@
 <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-2xl">
     <div class="text-center">
-        <x-logo />
+        <x-application-logo class="w-40" />
         <h2 class="text-4xl font-extrabold text-gray-900">Crie sua Conta</h2>
         <p class="text-sm text-gray-600">Junte-se a nós e comece a explorar</p>
     </div>
@@ -21,7 +21,7 @@
 
         <div class="relative">
             <label for="email" class="block text-sm font-medium text-gray-700">E-mail</label>
-            <input wire:model.lazy="email" id="email" type="email" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 placeholder-gray-400" placeholder="voce@exemplo.com" autocomplete="email">
+            <input wire:model="email" id="email" type="email" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 placeholder-gray-400" placeholder="seu@email.com" autocomplete="email">
             @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                 <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -33,56 +33,18 @@
 
         <div class="relative">
             <label for="password" class="block text-sm font-medium text-gray-700">Senha</label>
-            <input wire:model.lazy="password" id="password" type="password" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 placeholder-gray-400" placeholder="••••••••" autocomplete="new-password">
+            <input wire:model="password" placeholder="password" type="password" id="hs-strong-password-with-minLength" class="py-3 px-4 block w-full border border-gray-300 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" autocomplete="new-password">
             @error('password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v6m0 0l3-3m-3 3l-3-3m6-4a4 4 0 00-8 0v2a4 4 0 008 0v-2z" />
-                </svg>
-            </div>
-            <div class="mt-2">
-                <div class="h-2 rounded-full bg-gray-200">
-                    <div class="h-full rounded-full transition-all duration-300"
-                         style="width: {{ $passwordStrength * 20 }}%; background-color:
-                         @if ($passwordStrength <= 1) red
-                         @elseif ($passwordStrength <= 3) orange
-                         @elseif ($passwordStrength <= 4) yellow
-                         @else green @endif;">
-                    </div>
-                </div>
-                <p class="text-sm mt-1"
-                   style="color:
-                   @if ($passwordStrength <= 1) red
-                   @elseif ($passwordStrength <= 3) orange
-                   @elseif ($passwordStrength <= 4) yellow
-                   @else green @endif;">
-                   @switch($passwordStrength)
-                       @case(0)
-                           Muito fraca
-                           @break
-                       @case(1)
-                           Fraca
-                           @break
-                       @case(2)
-                           Média
-                           @break
-                       @case(3)
-                           Boa
-                           @break
-                       @case(4)
-                           Forte
-                           @break
-                       @case(5)
-                           Muito forte
-                           @break
-                   @endswitch
-                </p>
-            </div>
+            <div id="hs-strong-password-minLength" data-hs-strong-password='{
+                "target": "#hs-strong-password-with-minLength",
+                "stripClasses": "hs-strong-password:opacity-100 hs-strong-password-accepted:bg-teal-500 h-2 flex-auto rounded-full bg-blue-500 opacity-50 mx-1",
+                "minLength": "8"
+              }' class="flex mt-2 -mx-1"></div>
         </div>
 
         <div class="relative">
             <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirme a Senha</label>
-            <input wire:model.lazy="password_confirmation" id="password_confirmation" type="password" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 placeholder-gray-400" placeholder="••••••••" autocomplete="new-password">
+            <input wire:model="password_confirmation" id="password_confirmation" type="password" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 placeholder-gray-400" placeholder="••••••••" autocomplete="new-password">
         </div>
 
         <div class="mt-6">

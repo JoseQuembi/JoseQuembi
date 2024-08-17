@@ -4,6 +4,8 @@ namespace App\Livewire\Admin\Projects;
 
 use Livewire\Component;
 use App\Models\Project;
+use App\Models\Task as TaskModel;
+use App\Models\User;
 use Livewire\Attributes\Layout;
 
 class Task extends Component
@@ -12,19 +14,25 @@ class Task extends Component
     public $project;
     public $name;
     public $description;
-    public $due_date;
+    public $assigned_to;
+    public $start_date;
+    public $end_date;
     public $status = 'pending';
+    public $priority;
 
     protected $rules = [
         'name' => 'required|string|max:255',
         'description' => 'required|string',
-        'due_date' => 'required|date',
+        'assigned_to' => 'nullable|exists:users,id',
+        'start_date' => 'required|date',
+        'end_date' => 'nullable|date|after_or_equal:start_date',
         'status' => 'required|in:pending,in_progress,completed',
+        'priority' => 'required|in:low,medium,high',
     ];
 
     public function mount($slug)
     {
-        $this->project = Project::where('slug', $slug)->first();
+        $this->project = Project::where('slug', $slug)->firstOrFail();
     }
 
     public function addTask()
@@ -34,12 +42,14 @@ class Task extends Component
         $this->project->tasks()->create([
             'name' => $this->name,
             'description' => $this->description,
-            'due_date' => $this->due_date,
+            'assigned_to' => $this->assigned_to,
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
             'status' => $this->status,
-            'user_id' => auth()->id(),
+            'priority' => $this->priority,
         ]);
 
-        $this->reset(['name', 'description', 'due_date', 'status']);
+        $this->reset(['name', 'description', 'assigned_to', 'start_date', 'end_date', 'status', 'priority']);
         $this->project->refresh();
 
         session()->flash('message', 'Tarefa adicionada com sucesso.');
@@ -69,6 +79,7 @@ class Task extends Component
     {
         return view('livewire.admin.projects.task', [
             'tasks' => $this->project->tasks()->latest()->get(),
+            'users' => User::all(),
         ]);
     }
 }

@@ -41,16 +41,20 @@ class User extends Authenticatable
         });
     }
 
-    private static function generateUniqueUsername($name)
+    public static function generateUniqueUsername($name)
     {
-        $baseUsername = Str::slug($name, '_');
-        $username = $baseUsername;
-        $count = 1;
+        $username = Str::slug($name);
+
+        $originalUsername = $username;
+        $counter = 1;
+
         while (self::where('username', $username)->exists()) {
-            $username = $baseUsername . '_' . $count++;
+            $username = $originalUsername . '-' . $counter++;
         }
+
         return $username;
     }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class);
@@ -75,8 +79,9 @@ class User extends Authenticatable
 
     public function tasks()
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Task::class, 'assigned_to');
     }
+
     public function userProfile()
     {
         return $this->hasOne(UserProfile::class);

@@ -4,7 +4,9 @@
 <header class="flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full bg-white border-b border-gray-200 dark:bg-neutral-800 dark:border-neutral-700">
     <nav class="relative max-w-[85rem] w-full mx-auto md:flex md:items-center md:justify-between md:gap-3 py-2 px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center gap-x-1">
-            <a class="flex-none font-semibold text-xl text-black focus:outline-none focus:opacity-80 dark:text-white" href="{{ route('home') }}" aria-label="Marca">HuilaPlace</a>
+            <a class="flex-none font-semibold text-xl text-black focus:outline-none focus:opacity-80 dark:text-white" href="{{ route('home') }}" aria-label="Marca">
+                <img src="{{ asset('img/logo.svg') }}" class="w-40" />
+            </a>
 
             <!-- Botão de Colapso -->
             <button type="button" class="hs-collapse-toggle md:hidden relative size-9 flex justify-center items-center font-medium text-[12px] rounded-lg border border-gray-200 text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:border-neutral-700 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" id="hs-header-base-collapse" aria-expanded="false" aria-controls="hs-header-base" aria-label="Alternar navegação" data-hs-collapse="#hs-header-base">
@@ -154,7 +156,7 @@
     <div class="max-w-[85rem] w-full mx-auto sm:flex sm:flex-row sm:justify-between sm:items-center sm:gap-x-3 py-3 px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center gap-x-3">
             <div class="grow">
-                <span class="font-semibold whitespace-nowrap text-gray-800 dark:text-neutral-200">Meu projeto</span>
+                <span class="font-semibold whitespace-nowrap text-gray-800 dark:text-neutral-200">Huíla Place</span>
             </div>
 
             <button type="button" class="hs-collapse-toggle sm:hidden py-1.5 px-2 inline-flex items-center font-medium text-xs rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 focus:outline-none focus:bg-gray-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" data-hs-collapse="#hs-nav-secondary" aria-controls="hs-nav-secondary" aria-label="Alternar navegação">

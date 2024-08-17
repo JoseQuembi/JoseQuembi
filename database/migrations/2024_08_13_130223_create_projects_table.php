@@ -12,11 +12,13 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->date('start_date')->default(date('d-m-Y'));
-            $table->date('end_date')->default(Carbon::now()->addMonths(3)->format('Y-m-d'));
-            $table->enum('status',['planejamento','em_andamento','concluido','cancelado'])->default('planejamento');
+            $table->string('type');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->string('status')->default('em andamento');
+            $table->integer('progress')->default(0);
+            $table->string('slug')->unique();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('client_id')->constrained()->onDelete('cascade');
             $table->timestamps();

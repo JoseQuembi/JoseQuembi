@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>{{ $title ?? config('app.name') }}</title>
     <link rel="shortcut icon" href="{{ asset('img/favicon/favicon.ico') }}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('dist/main.css') }}">
     @livewireStyles
 </head>
 <body class="text-gray-900 antialiased">
@@ -26,7 +28,6 @@
             </div>
         </div>
     </footer>
-
     @livewireScripts
     <script src="{{ asset('dist/preline.js') }}"></script>
     <script>

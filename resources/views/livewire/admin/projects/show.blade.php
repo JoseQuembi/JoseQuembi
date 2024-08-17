@@ -13,7 +13,7 @@
 
         <div>
             <h3 class="text-lg font-semibold mb-2">Resumo do Orçamento</h3>
-            <p><strong>Total Orçado:</strong> {{ Ajuda::Moeda($project->budget()->sum('amount')) }}</p>
+            <p><strong>Total Orçado:</strong> {{ Ajuda::Moeda($project->budgets()->sum('amount')) }}</p>
             <!-- Adicione mais informações sobre o orçamento conforme necessário -->
             <h3 class="text-lg font-semibold mb-2 mt-8">Recursos</h3>
             @foreach ($project->resources as $resource )

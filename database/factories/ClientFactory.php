@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Client;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class ClientFactory extends Factory
 {
@@ -17,6 +18,8 @@ class ClientFactory extends Factory
             'phone' => $this->faker->phoneNumber,
             'address' => $this->faker->address,
             'company_name' => $this->faker->company,
+            'username' => $this->faker->unique()->userName,
+            'token_access' => Str::random(60),
         ];
     }
 }

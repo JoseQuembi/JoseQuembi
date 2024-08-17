@@ -20,8 +20,9 @@ class ProjectFactory extends Factory
             'start_date' => $this->faker->date,
             'end_date' => $this->faker->date,
             'user_id' => User::inRandomOrder()->first()->id,
-            'status' => $this->faker->randomElement(['planejamento','em_andamento','concluido','cancelado']), // Ajuste os valores conforme necessário
+            'status' => $this->faker->randomElement(['planejamento', 'em_andamento', 'concluido', 'cancelado']), // Ajuste os valores conforme necessário
             'client_id' => Client::inRandomOrder()->first()->id,
+            'type' => $this->faker->randomElement(['web', 'mobile', 'desktop']), // Defina os valores apropriados para o tipo
         ];
     }
 }

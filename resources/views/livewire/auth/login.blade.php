@@ -1,6 +1,6 @@
 <div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-2xl">
     <div class="text-center">
-        <x-logo />
+        <x-application-logo class="w-40 h-15" />
         <h2 class="text-4xl font-extrabold text-gray-900">Bem-vindo de volta!</h2>
         <p class="text-sm text-gray-600">Entre para acessar sua conta</p>
     </div>
@@ -10,7 +10,7 @@
 
         <div class="relative">
             <label for="email" class="block text-sm font-medium text-gray-700">E-mail</label>
-            <input wire:model.lazy="email" id="email" type="email" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400" placeholder="voce@exemplo.com" autocomplete="email">
+            <input wire:model="email" id="email" type="email" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400" placeholder="seu@email.com" autocomplete="email">
             @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                 <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -22,7 +22,7 @@
 
         <div class="relative">
             <label for="password" class="block text-sm font-medium text-gray-700">Senha</label>
-            <input wire:model.lazy="password" id="password" type="password" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400" placeholder="••••••••" autocomplete="current-password">
+            <input wire:model="password" id="password" type="password" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400" placeholder="••••••••" autocomplete="current-password">
             @error('password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                 <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -33,7 +33,7 @@
 
         <div class="flex items-center justify-between">
             <div class="flex items-center">
-                <input wire:model.lazy="remember" id="remember" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                <input wire:model="remember" id="remember" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
                 <label for="remember" class="ml-2 block text-sm text-gray-900">Lembrar de mim</label>
             </div>
 

@@ -10,9 +10,9 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('dist/main.css') }}">
     <!-- Livewire Styles -->
     <script src="{{ asset('dist/charts.js') }}"></script>
     @livewireStyles
@@ -81,7 +81,6 @@
   <!-- ========== END FOOTER ========== -->
     <!-- Livewire Scripts -->
     @livewireScripts
-
     <!-- Preline UI Scripts -->
     <script src="{{ asset('dist/preline.js') }}"></script>
     <script>
