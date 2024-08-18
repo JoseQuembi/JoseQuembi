@@ -101,8 +101,7 @@ class InvoiceEdit extends Component
                 'unit_price' => $item['unit_price'],
             ]);
         }
-
-        session()->flash('message', 'Fatura atualizada com sucesso.');
+        $this->showAlert('A fatura foi atualizada com sucesso', 'success');
         return redirect()->route('admin.invoices.show', $this->invoice->slug);
     }
 
@@ -112,5 +111,16 @@ class InvoiceEdit extends Component
         $clients = Client::orderBy('name', 'asc')->get();
 
         return view('livewire.admin.create.invoice-edit', compact('projects', 'clients'));
+    }
+    private function showAlert($message, $type, $actions = null, $componentMethod = null)
+    {
+        $this->dispatch('showAlert', [
+            'message' => $message,
+            'type' => $type,
+            'duration' => 5000,
+            'actions' => $actions,
+            'component' => $actions ? $this->getId() : null,
+            'componentMethod' => $componentMethod,
+        ]);
     }
 }

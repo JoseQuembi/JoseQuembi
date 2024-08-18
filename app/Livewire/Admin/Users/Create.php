@@ -28,14 +28,23 @@ class Create extends Component
             'email' => $this->email,
             'password' => bcrypt($this->password),
         ]);
-
-        session()->flash('message', 'Usuário criado com sucesso.');
-
-        return redirect()->route('users.index');
+        $this->showAlert('Usuário criado com sucesso.', 'success');
+        $this->reset();
     }
 
     public function render()
     {
         return view('livewire.admin.users.create');
+    }
+    private function showAlert($message, $type, $actions = null, $componentMethod = null)
+    {
+        $this->dispatch('showAlert', [
+            'message' => $message,
+            'type' => $type,
+            'duration' => 5000,
+            'actions' => $actions,
+            'component' => $actions ? $this->getId() : null,
+            'componentMethod' => $componentMethod,
+        ]);
     }
 }

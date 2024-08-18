@@ -9,7 +9,7 @@ use Livewire\Attributes\Layout;
 class Show extends Component
 {
     #[Layout('layouts.dashboard')]
-    public $user;
+    public User $user;
 
     public function mount($username)
     {
@@ -18,6 +18,11 @@ class Show extends Component
 
     public function render()
     {
-        return view('livewire.admin.users.show');
+        return view('livewire.admin.users.show', [
+            'user' => $this->user,
+            'roles' => $this->user->roles,
+            'projects' => $this->user->projects,
+            'tasks' => $this->user->tasks,
+        ]);
     }
 }

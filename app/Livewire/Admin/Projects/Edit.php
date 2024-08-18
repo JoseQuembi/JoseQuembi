@@ -63,10 +63,8 @@ class Edit extends Component
             'progress' => $this->progress,
             'user_id' => $this->user_id,
         ]);
+        $this->showAlert('Projeto atualizado com sucesso!', 'success');
 
-        session()->flash('message', 'Projeto atualizado com sucesso!');
-
-        return redirect()->route('admin.projects.show', $this->project->slug);
     }
 
     public function render()
@@ -74,5 +72,16 @@ class Edit extends Component
         $users = User::all();
         $clients = Client::all();
         return view('livewire.admin.projects.edit', compact('users', 'clients'));
+    }
+    private function showAlert($message, $type, $actions = null, $componentMethod = null)
+    {
+        $this->dispatch('showAlert', [
+            'message' => $message,
+            'type' => $type,
+            'duration' => 5000,
+            'actions' => $actions,
+            'component' => $actions ? $this->getId() : null,
+            'componentMethod' => $componentMethod,
+        ]);
     }
 }

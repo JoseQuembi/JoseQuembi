@@ -36,11 +36,22 @@ class Security extends Component
         ]);
 
         $this->reset(['current_password', 'password', 'password_confirmation']);
-        session()->flash('message', 'Senha atualizada com sucesso.');
+        $this->showAlert('Sua senha foi alterada com sucesso', 'success');
     }
 
     public function render()
     {
         return view('livewire.admin.profile.security');
+    }
+    private function showAlert($message, $type, $actions = null, $componentMethod = null)
+    {
+        $this->dispatch('showAlert', [
+            'message' => $message,
+            'type' => $type,
+            'duration' => 5000,
+            'actions' => $actions,
+            'component' => $actions ? $this->getId() : null,
+            'componentMethod' => $componentMethod,
+        ]);
     }
 }

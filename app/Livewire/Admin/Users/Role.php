@@ -23,4 +23,5 @@ class Role extends Component
     {
         return view('livewire.admin.users.role');
     }
+
 }

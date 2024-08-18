@@ -35,15 +35,24 @@ class Create extends Component
             'unit_cost' => $this->unit_cost,
             'project_id' => $this->project_id
         ]);
-
-        session()->flash('message', 'Recurso criado com sucesso.');
-
-        return redirect()->route('admin.resources.index');
+        $this->showAlert('Recurso criado com sucesso.', 'success');
+        $this->reset();
     }
 
     public function render()
     {
-        $projetos = Project::orderBy('name','asc')->get();
-        return view('livewire.admin.resources.create',['projetos'=> $projetos]);
+        $projetos = Project::orderBy('name', 'asc')->get();
+        return view('livewire.admin.resources.create', ['projetos' => $projetos]);
+    }
+    private function showAlert($message, $type, $actions = null, $componentMethod = null)
+    {
+        $this->dispatch('showAlert', [
+            'message' => $message,
+            'type' => $type,
+            'duration' => 5000,
+            'actions' => $actions,
+            'component' => $actions ? $this->getId() : null,
+            'componentMethod' => $componentMethod,
+        ]);
     }
 }

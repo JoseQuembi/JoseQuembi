@@ -46,15 +46,24 @@ class Create extends Component
             'status' => $this->status,
             'progress' => $this->progress,
         ]);
-
-        session()->flash('message', 'Projeto criado com sucesso!');
-
-        return redirect()->route('admin.projects.index');
+        $this->showAlert('Projeto criado com sucesso!', 'success');
+        $this->reset();
     }
 
     public function render()
     {
         $clients = Client::all();
         return view('livewire.admin.projects.create', ['clients' => $clients]);
+    }
+    private function showAlert($message, $type, $actions = null, $componentMethod = null)
+    {
+        $this->dispatch('showAlert', [
+            'message' => $message,
+            'type' => $type,
+            'duration' => 5000,
+            'actions' => $actions,
+            'component' => $actions ? $this->getId() : null,
+            'componentMethod' => $componentMethod,
+        ]);
     }
 }

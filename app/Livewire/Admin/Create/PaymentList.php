@@ -23,6 +23,7 @@ class PaymentList extends Component
     public function delete($id){
         $payment = Payment::find($id);
         $payment->delete();
+        $this->showAlert('Factura eliminada do sistema', 'success');
     }
 
     public function render()
@@ -39,5 +40,16 @@ class PaymentList extends Component
             ->latest()
             ->paginate(10);
         return view('livewire.admin.create.payment-list', compact('payments'));
+    }
+    private function showAlert($message, $type, $actions = null, $componentMethod = null)
+    {
+        $this->dispatch('showAlert', [
+            'message' => $message,
+            'type' => $type,
+            'duration' => 5000,
+            'actions' => $actions,
+            'component' => $actions ? $this->getId() : null,
+            'componentMethod' => $componentMethod,
+        ]);
     }
 }

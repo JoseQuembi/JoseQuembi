@@ -64,13 +64,23 @@ class Configure extends Component
         }
 
         $settings->save();
+        $this->showAlert('Configurações salvas com sucesso!', 'success');
 
-        session()->flash('message', 'Configurações salvas com sucesso!');
-        return redirect()->route('admin.settings.index');
     }
 
     public function render()
     {
         return view('livewire.admin.settings.configure');
+    }
+    private function showAlert($message, $type, $actions = null, $componentMethod = null)
+    {
+        $this->dispatch('showAlert', [
+            'message' => $message,
+            'type' => $type,
+            'duration' => 5000,
+            'actions' => $actions,
+            'component' => $actions ? $this->getId() : null,
+            'componentMethod' => $componentMethod,
+        ]);
     }
 }

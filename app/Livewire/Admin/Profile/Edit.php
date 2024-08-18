@@ -66,12 +66,22 @@ class Edit extends Component
             $imagePath = $this->newProfileImage->store('profile-images', 'public');
             $this->user->update(['profile_image' => $imagePath]);
         }
-
-        session()->flash('message', 'Perfil atualizado com sucesso.');
+        $this->showAlert('Seu perfil foi atualizado', 'success');
     }
 
     public function render()
     {
         return view('livewire.admin.profile.edit');
+    }
+    private function showAlert($message, $type, $actions = null, $componentMethod = null)
+    {
+        $this->dispatch('showAlert', [
+            'message' => $message,
+            'type' => $type,
+            'duration' => 5000,
+            'actions' => $actions,
+            'component' => $actions ? $this->getId() : null,
+            'componentMethod' => $componentMethod,
+        ]);
     }
 }

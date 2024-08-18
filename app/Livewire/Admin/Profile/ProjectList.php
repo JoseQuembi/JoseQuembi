@@ -4,6 +4,8 @@ namespace App\Livewire\Admin\Profile;
 
 use Livewire\Component;
 use App\Models\Project;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectList extends Component
 {
@@ -12,7 +14,8 @@ class ProjectList extends Component
 
     public function mount()
     {
-        $this->projects = auth()->user()->projects()->latest()->get();
+        $user = User::find(Auth::user()->id);
+        $this->projects = $user->projects()->latest()->get();
     }
 
     public function render()

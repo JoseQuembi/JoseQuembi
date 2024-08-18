@@ -43,11 +43,13 @@ Route::prefix('painel')->middleware(['auth', 'role:admin'])->name('admin.')->gro
         Route::get('{slug}/edit', App\Livewire\Admin\Create\InvoiceEdit::class)->name('edit');
         Route::get('{slug}/show', App\Livewire\Admin\Create\InvoiceShow::class)->name('show');
     });
+
+    //Clientes
     Route::prefix('clients')->name('clients.')->group(function(){
         Route::get('/', App\Livewire\Admin\Clients\Index::class)->name('index');
         Route::get('create', App\Livewire\Admin\Clients\Create::class)->name('create');
-        Route::get('editar/{client}', App\Livewire\Admin\Clients\Create::class)->name('edit');
-        Route::get('detalhe/{client}', App\Livewire\Admin\Clients\Create::class)->name('show');
+        Route::get('{slug}/edit', App\Livewire\Admin\Clients\Edit::class)->name('edit');
+        Route::get('{slug}/show', App\Livewire\Admin\Clients\Show::class)->name('show');
     });
     // Rotas CRUD para Recursos
     Route::prefix('resources')->name('resources.')->group(function(){
@@ -66,7 +68,42 @@ Route::prefix('painel')->middleware(['auth', 'role:admin'])->name('admin.')->gro
     // Perfil do Usuário
     Route::prefix('perfil')->name('profile.')->group(function(){
         Route::get('overview', App\Livewire\Admin\Profile\Show::class)->name('show');
+        Route::get('{slug}/activity', App\Livewire\Admin\Profile\ProjectSchedule::class)->name('activity');
         Route::get('edit', App\Livewire\Admin\Profile\Edit::class)->name('edit');
         Route::get('security', App\Livewire\Admin\Profile\Security::class)->name('update');
+    });
+
+    //Novos Recursos
+
+    //Milistone
+    Route::prefix('milestones')->name('milestones.')->group(function(){
+        Route::get('/', App\Livewire\Admin\Milestones\Index::class)->name('index');
+        Route::get('create', App\Livewire\Admin\Milestones\Create::class)->name('create');
+        Route::get('{milestone}/edit', App\Livewire\Admin\Milestones\Edit::class)->name('edit');
+        Route::get('{milestone}/show', App\Livewire\Admin\Milestones\Show::class)->name('show');
+    });
+
+    //issues
+    Route::prefix('issues')->name('issues.')->group(function(){
+        Route::get('/', App\Livewire\Admin\Issues\Index::class)->name('index');
+        Route::get('create', App\Livewire\Admin\Issues\Create::class)->name('create');
+        Route::get('{issue}/edit', App\Livewire\Admin\Issues\Edit::class)->name('edit');
+        Route::get('{issue}/show', App\Livewire\Admin\Issues\Show::class)->name('show');
+    });
+
+    //teams
+    Route::prefix('teams')->name('teams.')->group(function(){
+        Route::get('/', App\Livewire\Admin\Teams\Index::class)->name('index');
+        Route::get('create', App\Livewire\Admin\Teams\Create::class)->name('create');
+        Route::get('{team}/edit', App\Livewire\Admin\Teams\Edit::class)->name('edit');
+        Route::get('{team}/show', App\Livewire\Admin\Teams\Show::class)->name('show');
+    });
+
+    //Risks
+    Route::prefix('risks')->name('risks.')->group(function(){
+        Route::get('/', App\Livewire\Admin\Risks\Index::class)->name('index');
+        Route::get('create', App\Livewire\Admin\Risks\Create::class)->name('create');
+        Route::get('{risk}/edit', App\Livewire\Admin\Risks\Edit::class)->name('edit');
+        Route::get('{risk}/show', App\Livewire\Admin\Risks\Show::class)->name('show');
     });
 });

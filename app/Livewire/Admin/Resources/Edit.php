@@ -41,8 +41,7 @@ class Edit extends Component
             'quantity' => $this->quantity,
             'unit_cost' => $this->unit_cost,
         ]);
-
-        session()->flash('message', 'Recurso atualizado com sucesso.');
+        $this->showAlert('Recurso atualizado com sucesso.', 'success');
 
         return redirect()->route('admin.resources.show', $this->resource->slug);
     }
@@ -50,5 +49,16 @@ class Edit extends Component
     public function render()
     {
         return view('livewire.admin.resources.edit');
+    }
+    private function showAlert($message, $type, $actions = null, $componentMethod = null)
+    {
+        $this->dispatch('showAlert', [
+            'message' => $message,
+            'type' => $type,
+            'duration' => 5000,
+            'actions' => $actions,
+            'component' => $actions ? $this->getId() : null,
+            'componentMethod' => $componentMethod,
+        ]);
     }
 }

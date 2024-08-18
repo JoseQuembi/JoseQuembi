@@ -54,6 +54,16 @@ class Project extends Model
         return $this->hasMany(Budget::class);
     }
 
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
     // Um Projeto pode ter muitas Tarefas
     public function tasks()
     {
@@ -90,5 +100,10 @@ class Project extends Model
     public function issues()
     {
         return $this->hasMany(Issue::class);
+    }
+
+    public function versions()
+    {
+        return $this->hasMany(Version::class);
     }
 }

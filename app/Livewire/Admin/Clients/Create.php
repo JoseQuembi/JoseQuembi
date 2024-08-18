@@ -35,12 +35,23 @@ class Create extends Component
             'company_name' => $this->company_name,
         ]);
 
-        session()->flash('message', 'Client created successfully.');
-        return redirect()->route('admin.clients.index');
+        $this->showAlert('Novo cliente adicionado ao sistema', 'success');
+        $this->reset();
     }
 
     public function render()
     {
         return view('livewire.admin.clients.create');
+    }
+    private function showAlert($message, $type, $actions = null, $componentMethod = null)
+    {
+        $this->dispatch('showAlert', [
+            'message' => $message,
+            'type' => $type,
+            'duration' => 5000,
+            'actions' => $actions,
+            'component' => $actions ? $this->getId() : null,
+            'componentMethod' => $componentMethod,
+        ]);
     }
 }

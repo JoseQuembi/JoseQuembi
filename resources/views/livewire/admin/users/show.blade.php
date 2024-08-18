@@ -1,24 +1,62 @@
-<div class="container mx-auto py-8">
-    <div class="w-full max-w-lg mx-auto bg-white shadow-lg rounded-lg p-8">
-        <div class="flex items-center mb-6">
-            <img src="{{ $user->profile_image }}" alt="{{ $user->name }}" class="h-24 w-24 rounded-full mr-6">
-            <div>
-                <h2 class="text-3xl font-bold text-gray-800">{{ $user->name }}</h2>
-                <p class="text-gray-600">{{ $user->email }}</p>
-            </div>
+<div>
+    <h2 class="text-2xl font-bold mb-4">Detalhes do Usuário: {{ $user->name }}</h2>
+
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="px-4 py-5 sm:px-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                Informações do Usuário
+            </h3>
         </div>
-        <div class="mb-6">
-            <h3 class="text-xl font-semibold text-gray-700">Informações Pessoais</h3>
-            <p class="mt-2 text-gray-700">Endereço: {{ $user->address }}</p>
-            <p class="mt-2 text-gray-700">Telefone: {{ $user->phone }}</p>
-        </div>
-        <div>
-            <h3 class="text-xl font-semibold text-gray-700">Funções</h3>
-            <div class="mt-2">
-                @foreach($user->roles as $role)
-                <span class="bg-gray-200 text-gray-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded">{{ $role->name }}</span>
-                @endforeach
-            </div>
+        <div class="border-t border-gray-200">
+            <dl>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Nome</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $user->name }}</dd>
+                </div>
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Usuário</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $user->username }}</dd>
+                </div>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Email</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $user->email }}</dd>
+                </div>
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Endereço</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $user->address ?: 'Não informado' }}</dd>
+                </div>
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Telefone</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $user->phone ?: 'Não informado' }}</dd>
+                </div>
+            </dl>
         </div>
     </div>
+
+    <h3 class="text-xl font-bold mt-6 mb-2">Funções</h3>
+    <ul class="list-disc list-inside">
+        @forelse ($roles as $role)
+            <li>{{ $role->name }}</li>
+        @empty
+            <li>Nenhuma função atribuída</li>
+        @endforelse
+    </ul>
+
+    <h3 class="text-xl font-bold mt-6 mb-2">Projetos</h3>
+    <ul class="list-disc list-inside">
+        @forelse ($projects as $project)
+            <li>{{ $project->name }}</li>
+        @empty
+            <li>Nenhum projeto atribuído</li>
+        @endforelse
+    </ul>
+
+    <h3 class="text-xl font-bold mt-6 mb-2">Tarefas</h3>
+    <ul class="list-disc list-inside">
+        @forelse ($tasks as $task)
+            <li>{{ $task->title }}</li>
+        @empty
+            <li>Nenhuma tarefa atribuída</li>
+        @endforelse
+    </ul>
 </div>

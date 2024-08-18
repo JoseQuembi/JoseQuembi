@@ -37,6 +37,9 @@ class Payment extends Component
         $project = Project::find($this->project_id);
         if ($project) {
             $this->client_id = $project->client_id;
+            $this->showAlert('Id do projecto foi alterado', 'success');
+        }else{
+            $this->showAlert('Erro ao alterar o Id do projeto', 'warning');
         }
     }
 
@@ -56,9 +59,11 @@ class Payment extends Component
             'client_id' => $this->client_id, // Definindo client_id
         ]);
 
-        $this->generateInstallments($payment);
+        $this->showAlert('Fatura de Pagamento gerado com sucesso', 'success');
+        if($this->generateInstallments($payment)){
+            $this->showAlert('Parcela do Projeto Gerada', 'success');
+        }
         $this->reset();
-        session()->flash('message', 'Pagamento criado com sucesso.');
         return redirect()->route('admin.payments.show', $payment->slug);
     }
 
@@ -87,6 +92,7 @@ class Payment extends Component
             'due_date' => $dueDate,
             'status' => 'pending',
         ]);
+        $this->showAlert('Parcela Gerada', 'success');
     }
 
     public function render()
@@ -94,5 +100,16 @@ class Payment extends Component
         $clientes = Client::all();
         $projects = Project::orderBy('name', 'asc')->get();
         return view('livewire.admin.create.payment', compact('projects','clientes'));
+    }
+    private function showAlert($message, $type, $actions = null, $componentMethod = null)
+    {
+        $this->dispatch('showAlert', [
+            'message' => $message,
+            'type' => $type,
+            'duration' => 5000,
+            'actions' => $actions,
+            'component' => $actions ? $this->getId() : null,
+            'componentMethod' => $componentMethod,
+        ]);
     }
 }

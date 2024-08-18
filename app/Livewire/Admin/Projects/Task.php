@@ -51,8 +51,11 @@ class Task extends Component
 
         $this->reset(['name', 'description', 'assigned_to', 'start_date', 'end_date', 'status', 'priority']);
         $this->project->refresh();
-
-        session()->flash('message', 'Tarefa adicionada com sucesso.');
+        $this->dispatch('showAlert', [
+            'message' => 'Tarefa adicionada com sucesso.',
+            'type' => 'success', // or 'info', 'warning', 'error'
+    'duration' => 5000, // optional, defaults to 5000ms
+]);
     }
 
     public function updateTaskStatus($taskId, $newStatus)
@@ -61,8 +64,11 @@ class Task extends Component
         $task->update(['status' => $newStatus]);
 
         $this->project->refresh();
-
-        session()->flash('message', 'Status da tarefa atualizado com sucesso.');
+        $this->dispatch('showAlert', [
+            'message' => 'Status da tarefa atualizado com sucesso.',
+            'type' => 'success', // or 'info', 'warning', 'error'
+    'duration' => 5000, // optional, defaults to 5000ms
+]);
     }
 
     public function deleteTask($taskId)
@@ -71,8 +77,8 @@ class Task extends Component
         $task->delete();
 
         $this->project->refresh();
+        $this->showAlert('Tarefa removida com sucesso.', 'success');
 
-        session()->flash('message', 'Tarefa removida com sucesso.');
     }
 
     public function render()
@@ -80,6 +86,17 @@ class Task extends Component
         return view('livewire.admin.projects.task', [
             'tasks' => $this->project->tasks()->latest()->get(),
             'users' => User::all(),
+        ]);
+    }
+    private function showAlert($message, $type, $actions = null, $componentMethod = null)
+    {
+        $this->dispatch('showAlert', [
+            'message' => $message,
+            'type' => $type,
+            'duration' => 5000,
+            'actions' => $actions,
+            'component' => $actions ? $this->getId() : null,
+            'componentMethod' => $componentMethod,
         ]);
     }
 }

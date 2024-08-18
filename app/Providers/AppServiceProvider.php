@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Observers\PaymentObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use Livewire\Livewire;
+use App\Livewire\Components\AlertMessage;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -40,5 +42,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('endpermission', function () {
             return "<?php endif; ?>";
         });
+
+        Livewire::component('components.alert-message', AlertMessage::class);
     }
 }

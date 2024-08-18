@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }} - Painel Administrativo</title>
+    <title>{{ $title ?? config('app.name') }}</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
     <link rel="shortcut icon" href="{{ asset('img/favicon/favicon.ico') }}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('dist/callendar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/dhtmlxgantt.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/main.css') }}">
+    @stack('styles')
     @livewireStyles
 </head>
 <body class="font-sans antialiased">
@@ -23,16 +27,18 @@
                     <div class="flex">
                         <!-- Logo -->
                         <div class="flex-shrink-0 flex items-center">
-                            <a href="{{ route('admin.dashboard') }}">
-                                <x-application-logo class="w-40 h-20" />
+                            <a href="{{ route('home') }}">
+                                <img src="{{ asset('img/logo.svg') }}" class="w-40 h-20" />
                             </a>
                         </div>
 
                         <!-- Navigation Links -->
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            @role('admin')
                             <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                                 Dashboard
                             </x-nav-link>
+                            @endrole
                             <x-nav-link :href="route('admin.profile.show')" :active="request()->routeIs('admin.profile.show')">
                                 Perfil
                             </x-nav-link>
@@ -85,5 +91,10 @@
     </div>
 
     @livewireScripts
+    <script src="{{ asset('dist/callendar.min.js') }}"></script>
+    <script src="{{ asset('dist/dhtmlxgantt.js') }}"></script>
+    <script src="{{ asset('dist/mermaid.min.js') }}"></script>
+    <script src="{{ asset('dist/') }}"></script>
+    @stack('scripts')
 </body>
 </html>

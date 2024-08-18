@@ -25,8 +25,18 @@ class InvoiceList extends Component
     {
         $invoice = Invoice::findOrFail($id);
         $invoice->delete();
-
-        session()->flash('message', 'Fatura excluída com sucesso.');
+        $this->showAlert('Fatura excluida com sucesso', 'success');
         $this->mount(); // Recarrega a lista de faturas
+    }
+    private function showAlert($message, $type, $actions = null, $componentMethod = null)
+    {
+        $this->dispatch('showAlert', [
+            'message' => $message,
+            'type' => $type,
+            'duration' => 5000,
+            'actions' => $actions,
+            'component' => $actions ? $this->getId() : null,
+            'componentMethod' => $componentMethod,
+        ]);
     }
 }

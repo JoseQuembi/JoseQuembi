@@ -20,6 +20,7 @@ class PaymentDetails extends Component
     {
         $installment = $this->payment->installments()->findOrFail($installmentId);
         $installment->update(['status' => 'paid']);
+        $this->showAlert('Parcela Atualizada com sucesso', 'success');
 
         $this->updatePaymentStatus();
     }
@@ -31,8 +32,10 @@ class PaymentDetails extends Component
 
         if ($allPaid) {
             $this->payment->update(['status' => 'paid']);
+            $this->showAlert('Registrou-se um pagamento geral da fatura', 'success');
         } elseif ($anyPaid) {
             $this->payment->update(['status' => 'partial']);
+            $this->showAlert('Registrou-se um pagamento parcial da fatura', 'success');
         }
 
         $this->payment->refresh();

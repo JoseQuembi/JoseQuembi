@@ -59,6 +59,7 @@ class Invoice extends Component
         unset($this->items[$index]);
         $this->items = array_values($this->items);
         $this->calculateTotal();
+        $this->showAlert('Item removido com sucesso', 'success');
     }
 
     public function calculateTotal()
@@ -96,8 +97,7 @@ class Invoice extends Component
                 'unit_price' => $item['unit_price'],
             ]);
         }
-
-        session()->flash('message', 'Fatura criada com sucesso.');
+        $this->showAlert('Uma nova fatura foi adicionada ao sistema', 'success');
         return redirect()->route('admin.invoices.show', $invoice->id);
     }
 
@@ -108,5 +108,16 @@ class Invoice extends Component
         $installments = Installment::orderBy('due_date', 'asc')->get(); // Obter as parcelas
 
         return view('livewire.admin.create.invoice', compact('projects', 'clients', 'installments'));
+    }
+    private function showAlert($message, $type, $actions = null, $componentMethod = null)
+    {
+        $this->dispatch('showAlert', [
+            'message' => $message,
+            'type' => $type,
+            'duration' => 5000,
+            'actions' => $actions,
+            'component' => $actions ? $this->getId() : null,
+            'componentMethod' => $componentMethod,
+        ]);
     }
 }

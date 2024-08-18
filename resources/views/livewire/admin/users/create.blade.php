@@ -34,7 +34,7 @@
             </div>
             <div class="flex items-center justify-between">
                 <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Salvar</button>
-                <a href="{{ route('users.index') }}" class="text-gray-700 hover:text-gray-900">Cancelar</a>
+                <a href="{{ route('admin.users.index') }}" class="text-gray-700 hover:text-gray-900">Cancelar</a>
             </div>
         </form>
     </div>

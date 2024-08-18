@@ -17,6 +17,7 @@ class Index extends Component
     public function delete($id){
         $client = Client::find($id);
         $client->delete();
+        $this->showAlert('Cliente eliminado com exito', 'success');
     }
 
     public function render()
@@ -27,6 +28,17 @@ class Index extends Component
 
         return view('livewire.admin.clients.index', [
             'clients' => $clients
+        ]);
+    }
+    private function showAlert($message, $type, $actions = null, $componentMethod = null)
+    {
+        $this->dispatch('showAlert', [
+            'message' => $message,
+            'type' => $type,
+            'duration' => 5000,
+            'actions' => $actions,
+            'component' => $actions ? $this->getId() : null,
+            'componentMethod' => $componentMethod,
         ]);
     }
 }

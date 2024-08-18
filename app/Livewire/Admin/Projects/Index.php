@@ -34,7 +34,7 @@ class Index extends Component
     public function delete($id){
         $projeto = Project::findOrFail($id);
         $projeto->delete();
-        session()->flash('message','Projeto Eliminado com exito');
+        $this->showAlert('Projeto Eliminado com exito', 'success');
     }
 
     public function render()
@@ -49,6 +49,17 @@ class Index extends Component
 
         return view('livewire.admin.projects.index', [
             'projects' => $projects,
+        ]);
+    }
+    private function showAlert($message, $type, $actions = null, $componentMethod = null)
+    {
+        $this->dispatch('showAlert', [
+            'message' => $message,
+            'type' => $type,
+            'duration' => 5000,
+            'actions' => $actions,
+            'component' => $actions ? $this->getId() : null,
+            'componentMethod' => $componentMethod,
         ]);
     }
 }

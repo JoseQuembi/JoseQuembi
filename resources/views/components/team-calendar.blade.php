@@ -1,29 +1,18 @@
-<div id="team-calendar"></div>
+<!-- components.team-calendar -->
+<div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+    <div id="team-calendar"></div>
+</div>
 
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        let calendarEl = document.getElementById('team-calendar');
-        let calendar = new FullCalendar.Calendar(calendarEl, {
+        var calendarEl = document.getElementById('team-calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
-            events: [
-                @foreach ($tasks as $task)
-                {
-                    title: '{{ $task->name }}',
-                    start: '{{ $task->start_date }}',
-                    end: '{{ $task->end_date }}',
-                    color: '#3788d8'
-                },
-                @endforeach
-                @foreach ($milestones as $milestone)
-                {
-                    title: '{{ $milestone->name }}',
-                    start: '{{ $milestone->due_date }}',
-                    allDay: true,
-                    color: '#e67e22'
-                },
-                @endforeach
-            ]
+            events: @json($tasks->concat($milestones)),
+            eventClick: function(info) {
+                alert('Event: ' + info.event.title);
+            }
         });
         calendar.render();
     });
